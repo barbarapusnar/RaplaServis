@@ -4345,11 +4345,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/barbarap/Servis/Servis/Servis.csproj",
+      "projectUniqueName": "/Users/barbarap/RaplaServis/Servis/Servis/Servis.csproj",
       "projectName": "Servis",
-      "projectPath": "/Users/barbarap/Servis/Servis/Servis.csproj",
+      "projectPath": "/Users/barbarap/RaplaServis/Servis/Servis/Servis.csproj",
       "packagesPath": "/Users/barbarap/.nuget/packages/",
-      "outputPath": "/Users/barbarap/Servis/Servis/obj/",
+      "outputPath": "/Users/barbarap/RaplaServis/Servis/Servis/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/barbarap/.nuget/NuGet/NuGet.Config"
