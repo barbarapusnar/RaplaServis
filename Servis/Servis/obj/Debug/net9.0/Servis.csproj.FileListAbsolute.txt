@@ -265,3 +265,7 @@
 /Users/barbarap/RaplaServis/Servis/Servis/obj/Debug/net9.0/Servis.pdb
 /Users/barbarap/RaplaServis/Servis/Servis/obj/Debug/net9.0/Servis.genruntimeconfig.cache
 /Users/barbarap/RaplaServis/Servis/Servis/obj/Debug/net9.0/ref/Servis.dll
+/Users/barbarap/RaplaServis/Servis/Servis/bin/Debug/net9.0/xunit.abstractions.dll
+/Users/barbarap/RaplaServis/Servis/Servis/bin/Debug/net9.0/xunit.assert.dll
+/Users/barbarap/RaplaServis/Servis/Servis/bin/Debug/net9.0/xunit.core.dll
+/Users/barbarap/RaplaServis/Servis/Servis/bin/Debug/net9.0/xunit.execution.dotnet.dll

@@ -1,0 +1,134 @@
+/*app.MapGet("/urnikRedni",async (string predmet,string odD, string doD,string s,string smer,VajaContext context) =>
+{
+    DateTime d1=DateTime.Parse(odD);
+    DateTime d2=DateTime.Parse(doD);
+    //dobiti je treba predhodni datum, ima repetion in pade do tega datuma
+    var rawData = (
+    from al in context.Allocations
+    join a in context.Appointments on al.AppointmentId equals a.Id
+    join e in context.Events on a.EventId equals e.Id
+    join ev in context.EventAttributeValues on e.Id equals ev.EventId
+    join r in context.ResourceAttributeValues on al.ResourceId equals r.ResourceId
+    join rr in context.RaplaResources on r.ResourceId equals rr.Id
+    where a.AppointmentStart >= d1
+       && a.AppointmentStart <= d2
+       && ev.AttributeValue.Contains(predmet) // ali ev.AttributeValue.Contains("") če res rabiš
+    select new
+    {
+        ev.EventId,
+        a.AppointmentStart,
+        a.AppointmentEnd,
+        ev.AttributeKey,
+        ev.AttributeValue,  
+       // ra=r.AttributeValue,
+        ak=r.AttributeKey ,
+        rr.TypeKey,
+        atva=r.AttributeValue 
+    }
+    ).AsQueryable()
+.AsEnumerable(); // ključni korak – preklop na klienta
+
+// Grupiranje in logika na klientu
+var podatki = rawData
+    .GroupBy(x => new
+    {
+        Datum = x.AppointmentStart.Date,
+        Dan = x.AppointmentStart.DayOfWeek.ToString(),
+        Zac = x.AppointmentStart.TimeOfDay,
+        Kon = x.AppointmentEnd.TimeOfDay,
+        x.AttributeKey,
+        x.AttributeValue,
+        x.EventId
+    })
+    .Select(g =>
+    {
+        var oseba = g.Where(x => x.TypeKey == "person1"&&x.ak=="Ime").Select(x => x.atva).FirstOrDefault();
+        var skupina = string.Join(",", g.Where(x => x.TypeKey == "resource7").Select(x => x.atva));
+        var prostor = g.Where(x => x.TypeKey == "resource1").Select(x => x.atva).FirstOrDefault();
+
+        return new
+        {
+            g.Key.Datum,
+            g.Key.Dan,
+            g.Key.Zac,
+            g.Key.Kon,
+            Ključ = g.Key.AttributeKey,
+            Vsebina = g.Key.AttributeValue,
+            Oseba = oseba,
+            Skupina = skupina,
+            Prostor = prostor
+        };
+    })
+    .Where(x => !string.IsNullOrEmpty(x.Skupina)&&x.Ključ!="a1"&&x.Skupina.Contains(s) && !x.Skupina.Contains("IZREDNI", StringComparison.CurrentCultureIgnoreCase) && x.Skupina.Contains(smer))
+    .OrderBy(x => x.Datum).ThenBy(x => x.Zac)
+    .ToList();
+    return Results.Json(podatki.ToList());
+    }
+);*/
+
+/*
+app.MapGet("/urnikIzredni",async (string predmet,string odD, string doD,string s,string smer,VajaContext context) =>
+{
+    DateTime d1=DateTime.Parse(odD);
+    DateTime d2=DateTime.Parse(doD);
+    var rawData = (
+    from al in context.Allocations
+    join a in context.Appointments on al.AppointmentId equals a.Id
+    join e in context.Events on a.EventId equals e.Id
+    join ev in context.EventAttributeValues on e.Id equals ev.EventId
+    join r in context.ResourceAttributeValues on al.ResourceId equals r.ResourceId
+    join rr in context.RaplaResources on r.ResourceId equals rr.Id
+    where a.AppointmentStart >= d1
+       && a.AppointmentStart <= d2
+       && ev.AttributeValue.Contains(predmet) // ali ev.AttributeValue.Contains("") če res rabiš
+    select new
+    {
+        a.AppointmentStart,
+        a.AppointmentEnd,
+        ev.AttributeKey,
+        ev.AttributeValue,  
+       // ra=r.AttributeValue,
+        ak=r.AttributeKey ,
+        rr.TypeKey,
+        atva=r.AttributeValue 
+    }
+    ).AsQueryable()
+.AsEnumerable(); // ključni korak – preklop na klienta
+
+// Grupiranje in logika na klientu
+var podatki = rawData
+    .GroupBy(x => new
+    {
+        Datum = x.AppointmentStart.Date,
+        Dan = x.AppointmentStart.DayOfWeek.ToString(),
+        Zac = x.AppointmentStart.TimeOfDay,
+        Kon = x.AppointmentEnd.TimeOfDay,
+        x.AttributeKey,
+        x.AttributeValue
+    })
+    .Select(g =>
+    {
+        var oseba = g.Where(x => x.TypeKey == "person1"&&x.ak=="Ime").Select(x => x.atva).FirstOrDefault();
+        var skupina = string.Join(",", g.Where(x => x.TypeKey == "resource7").Select(x => x.atva));
+        var prostor = g.Where(x => x.TypeKey == "resource1").Select(x => x.atva).FirstOrDefault();
+
+        return new
+        {
+            g.Key.Datum,
+            g.Key.Dan,
+            g.Key.Zac,
+            g.Key.Kon,
+            Ključ = g.Key.AttributeKey,
+            Vsebina = g.Key.AttributeValue,
+            Oseba = oseba,
+            Skupina = skupina,
+            Prostor = prostor
+        };
+    })
+    .Where(x => !string.IsNullOrEmpty(x.Skupina)&&x.Ključ!="a1"&&x.Skupina.Contains(s) && x.Skupina.Contains("IZREDNI", StringComparison.CurrentCultureIgnoreCase) && x.Skupina.Contains(smer))
+    .OrderBy(x => x.Datum).ThenBy(x => x.Zac)
+    .ToList();
+    return Results.Json(podatki.ToList());
+    }
+);
+*/

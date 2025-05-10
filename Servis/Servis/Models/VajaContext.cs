@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Servis.vaja;
+namespace Servis.Models;
 
 public partial class VajaContext : DbContext
 {
@@ -16,6 +16,8 @@ public partial class VajaContext : DbContext
     }
 
     public virtual DbSet<Allocation> Allocations { get; set; }
+
+    public virtual DbSet<Allocationtest> Allocationtests { get; set; }
 
     public virtual DbSet<Appointment> Appointments { get; set; }
 
@@ -59,6 +61,22 @@ public partial class VajaContext : DbContext
 
             entity.HasIndex(e => e.AppointmentId, "KEY_ALLOCATION_APPOINTMENT_ID");
 
+            entity.Property(e => e.AppointmentId).HasColumnName("APPOINTMENT_ID");
+            entity.Property(e => e.ParentOrder).HasColumnName("PARENT_ORDER");
+            entity.Property(e => e.ResourceId)
+                .HasMaxLength(255)
+                .HasColumnName("RESOURCE_ID");
+        });
+
+        modelBuilder.Entity<Allocationtest>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("ALLOCATIONTEST", "Vaja");
+
+            entity.HasIndex(e => e.AppointmentId, "KEY_ALLOCATION_APPOINTMENT_ID");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.AppointmentId).HasColumnName("APPOINTMENT_ID");
             entity.Property(e => e.ParentOrder).HasColumnName("PARENT_ORDER");
             entity.Property(e => e.ResourceId)
