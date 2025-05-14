@@ -181,15 +181,11 @@ app.MapGet("/urnikIzredni",async (string predmet,string odD, string doD,string s
     int l1=d1.Year;int m1=d1.Month;int day1=d1.Day;
     DateTime d2=DateTime.Parse(doD);
     DateTime d3; //zaćetni datum, ko iščeš ponavljanja za dodajanje
-    if (m1>=1 && m1<4)
-    d3=new DateTime(l1, 1, 1);
-    else if (m1>=4 && m1<7)
-    d3=new DateTime(l1, 4, 1);
-    else if (m1>=7 && m1<10)
-    d3=new DateTime(l1, 7, 1);
-    else if (m1>=10&&m1<=12)
+    if (m1>=10)
     d3=new DateTime(l1, 10, 1);
-    else d3=new DateTime(l1+1, 1, 1);
+    else 
+    d3=new DateTime(l1-1, 10, 1);
+    
     var vse=DodajPonavljanja(d3,predmet,context); // dodaj ponavljanja za predmet
     //dobiti je treba predhodni datum, ima repetion in pade do tega datuma
     var rawData = (
